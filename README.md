@@ -2,7 +2,7 @@ ip-monitor
 ==========
 
 A node.js library to monitor your external ip for changes
-
+check examples/basic.js for an alpha implementation
 This is a work in progress.
 
 Probably its going to look like this

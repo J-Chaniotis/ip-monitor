@@ -1,7 +1,8 @@
 'use strict';
 
-var Watcher = require('./lib/Watcher');
+var Watcher = require('./lib/Watcher').Watcher;
 var utils = require('./lib/utils');
+var extIP = require('external-ip');
 
 
 module.exports.createWatcher = function (extConfig) {
@@ -11,8 +12,12 @@ module.exports.createWatcher = function (extConfig) {
     }
 
     var defaultConfig = {
-        
+        polling: 20000,
+        externalIP: {}
     };
 
-    return new Watcher(utils.mergeConfig(extConfig, defaultConfig));
+    var config = utils.mergeConfig(extConfig, defaultConfig);
+    var getIP = extIP(config.externalIP);
+
+    return new Watcher(getIP, config);
 };
