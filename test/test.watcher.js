@@ -88,5 +88,16 @@ describe('watcher.js test', function () {
         extIP.yield(null, '10.10.10.10');
     });
 
+    it('sould emit "stop" when watcher.stop() is called', function (done) {
+        watcher.on('stop', function () {
+            done();
+        });
+        watcher.on('start', function () {
+            watcher.stop();
+        });
+        watcher.start();
+        extIP.yield(null, '10.10.10.10');
+    });
+
 
 });
