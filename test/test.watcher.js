@@ -1,5 +1,5 @@
 'use strict';
-/*globals it, describe, beforeEach*/
+/* globals it, describe, beforeEach */
 
 var expect = require('chai').expect;
 var Watcher = require('../lib/watcher').Watcher;
@@ -44,25 +44,11 @@ describe('watcher.js test', function () {
         watcher = new Watcher(extIP.getIP, config);
     });
 
-
     it('sould emit "start" when watcher.start() is called for the first time', function (done) {
         extIP.set(null, '10.10.10.10');
 
         watcher.on('start', function (ip) {
             expect(ip).to.equal('10.10.10.10');
-            done();
-        });
-
-        watcher.start();
-
-    });
-
-
-    it('sould emit "error" when extIP yields an error', function (done) {
-        extIP.set('Booom', null);
-
-        watcher.on('error', function (err) {
-            expect(err).to.equal('Booom');
             done();
         });
 
@@ -121,7 +107,37 @@ describe('watcher.js test', function () {
         watcher.start();
 
     });
-    // test errors, use error.name
+
+     it('sould emit "IPError" when extIP yields an error', function (done) {
+        extIP.set('Booom', null);
+
+        watcher.on('IPError', function (err) {
+            expect(err).to.equal('Booom');
+            done();
+        });
+
+        watcher.start();
+
+    });
+
+    it('should emit error if .stop is called and the watcher has not started', function (done) {
+        watcher.on('error', function(error) {
+            expect(error).to.equal('Not started');
+            done();
+        });
+        watcher.stop();
+    });
+
+    it('should emit error if .start is called and the watcher has been already started', function (done) {
+        watcher.on('stop', done);
+        extIP.set(null, '10.10.10.10');
+        watcher.on('error', function(error) {
+            expect(error).to.equal('Already started');
+            watcher.stop();
+        });
+        watcher.on('start', watcher.start);
+        watcher.start();
+    });
 
 
 });
