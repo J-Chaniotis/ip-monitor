@@ -1,33 +1,30 @@
 'use strict';
 var ipMon = require('../index');
 
-var watcher = ipMon.createWatcher({/*config*/});
+var watcher = ipMon.createWatcher();
 
-watcher.on('ipChanged', function (prevIP, newIP) {
+watcher.on('IP:change', function (prevIP, newIP) {
     console.log('Prev IP: %s, New IP: %s', prevIP, newIP);
 });
 
-// Handle errors better.
+/*
+Generic error event
+*/
 watcher.on('error', function (error) {
-    //throw new Error(error);
-    console.log('Error: ' + error);
-
+    throw error;
 });
 
-watcher.on('start', function (IP) {
-    console.log('Starting... IP: %s', IP);
-    setTimeout(function () {
-        //watcher.stop();
-    }, 10000);
+/*
+Seperate event for ip error handling.
+It will fire when the connection has been lost, e.g your router is restarting,
+thats why you may want to handle it differently than other errors.
+*/
+watcher.on('IP:error', function (error) {
+    console.log('Cant get external IP: ' + error);
 });
 
-watcher.on('stop', function () {
-    console.log('Stopping...');
-});
-
-// will trigger internal check too.
-watcher.getIP(function (IP) {
-    console.log('Le IP iz: %s', IP);
+watcher.on('IP:success', function (IP) {
+    console.log('Got IP: %s', IP);
 });
 
 

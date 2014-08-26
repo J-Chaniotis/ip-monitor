@@ -6,6 +6,7 @@ var extIP = require('external-ip');
 
 
 module.exports.createWatcher = function (extConfig) {
+    extConfig = extConfig || {};
     var isValid = utils.validateConfig(extConfig);
     if(isValid.errors.length) {
         throw new Error(isValid.errors);

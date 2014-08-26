@@ -27,7 +27,8 @@ var counter = function (maxCount, done) {
         invocations: 0,
         increment: function (times) {
             this.invocations += times || 1;
-/* JavaScript */if (this.invocations === maxCount) {
+            /* JavaScript */
+            if (this.invocations === maxCount) {
                 done();
             }
         }
@@ -44,84 +45,73 @@ describe('watcher.js test', function () {
         watcher = new Watcher(extIP.getIP, config);
     });
 
-    it('sould emit "start" when watcher.start() is called for the first time', function (done) {
-        extIP.set(null, '10.10.10.10');
 
-        watcher.on('start', function (ip) {
-            expect(ip).to.equal('10.10.10.10');
-            done();
-        });
-
-        watcher.start();
-
-    });
-
-    it('sould emit "ipChanged" when watcher.getIP() is called for the first time', function (done) {
+    it('should emit "IP:change" and "IP:success" when watcher.poll() is called for the first time', function (done) {
 
         var countTwo = counter(2, done);
         extIP.set(null, '10.10.10.10');
 
-        watcher.on('ipChanged', function (prevIP, IP) {
+        watcher.on('IP:change', function (prevIP, IP) {
             expect(IP).to.equal('10.10.10.10');
             expect(prevIP).to.equal(null);
             countTwo.increment();
         });
 
-        watcher.getIP(function (IP) {
+        watcher.on('IP:success', function (IP) {
             expect(IP).to.equal('10.10.10.10');
             countTwo.increment();
         });
 
+        watcher.poll();
 
     });
 
-    it('sould emit "stop" when watcher.stop() is called', function (done) {
+    it('should start and stop watching after n changes', function (done) {
 
-        extIP.set(null, '10.10.10.10');
-
-        watcher.on('stop', function () {
-            done();
-        });
-        watcher.on('start', function () {
-            watcher.stop();
-        });
-        watcher.start();
-        
-    });
-
-    it('should emit "ipChanged" n times', function (done) {
         var n = 5;
-        var countFive = counter(n, watcher.stop.bind(watcher));
-        extIP.set(null, countFive.invocations);
-
-        watcher.on('ipChanged', function (prevIP, newIP) {
-            expect(newIP).to.equal(countFive.invocations);
-            countFive.increment();
-            extIP.set(null, countFive.invocations);
-        });
-
-        watcher.on('stop', function () {
+        var count = counter(n, function () {
+            watcher.stop();
+            expect(watcher.isWatching()).to.equal(false);
             done();
+        });
+        // Use invocations as ip value, set initial value
+        extIP.set(null, count.invocations);
+
+        watcher.on('IP:change', function (prevIP, newIP) {
+            expect(newIP).to.equal(count.invocations);
+            count.increment();
+            // update the fake ip
+            extIP.set(null, count.invocations);
         });
 
         watcher.start();
 
     });
 
-     it('sould emit "IPError" when extIP yields an error', function (done) {
+   
+    it('should emit "IP:error" when extIP yields an error', function (done) {
         extIP.set('Booom', null);
 
-        watcher.on('IPError', function (err) {
+        watcher.on('IP:error', function (err) {
             expect(err).to.equal('Booom');
+            watcher.stop();
             done();
+        });
+
+        watcher.on('IP:success', function () {
+            throw new Error('IP:success should not fire!');
+        });
+        watcher.on('IP:change', function () {
+            throw new Error('IP:change should not fire!');
         });
 
         watcher.start();
 
     });
 
+
     it('should emit error if .stop is called and the watcher has not started', function (done) {
-        watcher.on('error', function(error) {
+        watcher.on('error', function (error) {
             expect(error).to.equal('Not started');
             done();
         });
@@ -129,14 +119,14 @@ describe('watcher.js test', function () {
     });
 
     it('should emit error if .start is called and the watcher has been already started', function (done) {
-        watcher.on('stop', done);
         extIP.set(null, '10.10.10.10');
-        watcher.on('error', function(error) {
+
+        watcher.on('error', function (error) {
             expect(error).to.equal('Already started');
             watcher.stop();
+            done();
         });
-        watcher.on('start', watcher.start);
-        watcher.start();
+        watcher.start().start();
     });
 
 
