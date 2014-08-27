@@ -73,5 +73,5 @@ var watcher = ipMon.createWatcher({
 ### Events
 * <b>`IP:success` :</b> fired every time `.poll()` yields an ip
 * <b>`IP:error`:</b> fired when `.poll()` encounters an error, usually if the connection is down
-* <b>`IP:change`:</b> fired when the external ip has changed. it will also fire the first time `.start()` is invoked.
+* <b>`IP:change`:</b> fired when the external ip has changed. it will also fire the first time `.start()` or `.poll()` are invoked.
 * <b>`error`:</b> typical error handling here
