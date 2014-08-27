@@ -57,12 +57,21 @@ var watcher = ipMon.createWatcher({
 ```
 
 ##API
-
-### Configuration
 //todo
+### Configuration
+`ipmon.createWatcher([config])` accepts a configuration object with the following optional properties:
+* **polling: **
+*  **externalIP: **
+
 
 ### Events
-//todo
+* **IP:success**
+* **IP:change**
+* **IP:error**
+
 
 ### Methods
-//todo
+* **`.start()`**
+* **`.stop()`**
+* **`.poll()`**
+* **`.isWatching()`**
