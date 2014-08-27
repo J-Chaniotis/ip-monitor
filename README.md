@@ -66,7 +66,7 @@ var watcher = ipMon.createWatcher({
 
 ### Events
 //todo
-* __`IP:success`: __
+* <b>`IP:success`: </b>
 * **`IP:change`: **
 * **`IP:error`: **
 
