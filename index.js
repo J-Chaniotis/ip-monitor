@@ -1,6 +1,6 @@
 'use strict';
 
-var Watcher = require('./lib/Watcher').Watcher;
+var Watcher = require('./lib/watcher').Watcher;
 var utils = require('./lib/utils');
 var extIP = require('external-ip');
 
