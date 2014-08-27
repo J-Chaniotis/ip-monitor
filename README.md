@@ -57,21 +57,22 @@ var watcher = ipMon.createWatcher({
 ```
 
 ##API
-//todo
+
 ### Configuration
 `ipmon.createWatcher([config])` accepts a configuration object with the following optional properties:
-* **polling: **
-*  **externalIP: **
+* ** `polling: <Integer>`: ** how often to poll for ip changes, default 20000ms
+* ** `externalIP: <Object>`: ** configuration passed directly to [`external-ip`](https://github.com/J-Chaniotis/external-ip/blob/master/README.md)
 
 
 ### Events
-* **IP:success**
-* **IP:change**
-* **IP:error**
+//todo
+* **`IP:success`: **
+* **`IP:change`: **
+* **`IP:error`: **
 
 
 ### Methods
-* **`.start()`**
-* **`.stop()`**
-* **`.poll()`**
-* **`.isWatching()`**
+* **`.start()`: ** start watching
+* **`.stop()`: ** stop watching
+* **`.poll()`: ** poll for ip manually
+* **`.isWatching()`: ** check if ip-monitor has started
