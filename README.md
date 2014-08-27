@@ -4,7 +4,8 @@
 A node.js library to monitor your external ip for changes
 
 ## Installation
-`npm install ip-monitor`
+
+using [npm](https://www.npmjs.org/package/ip-monitor): `npm install ip-monitor`
 
 ## Usage
 basic
@@ -61,7 +62,7 @@ var watcher = ipMon.createWatcher({
 ### Configuration
 `ipmon.createWatcher([config])` accepts a configuration object with the following optional properties:
 * <b>`polling: <Integer>`:</b> how often to poll for ip changes, default 20000ms
-* <b>`externalIP: <Object>`:</b> configuration passed directly to [`external-ip`](https://github.com/J-Chaniotis/external-ip/blob/master/README.md){:target="_blank"}
+* <b>`externalIP: <Object>`:</b> configuration passed directly to [`external-ip`](https://github.com/J-Chaniotis/external-ip/blob/master/README.md)
 
 ### Methods
 * <b>`.start()`:</b> start watching
