@@ -61,18 +61,16 @@ var watcher = ipMon.createWatcher({
 ### Configuration
 `ipmon.createWatcher([config])` accepts a configuration object with the following optional properties:
 * <b>`polling: <Integer>`:</b> how often to poll for ip changes, default 20000ms
-* <b>`externalIP: <Object>`:</b> configuration passed directly to [`external-ip`](https://github.com/J-Chaniotis/external-ip/blob/master/README.md)
-
-
-### Events
-//todo
-* <b>`IP:success` :</b>
-* <b>`IP:change`:</b>
-* <b>`IP:error`:</b>
-
+* <b>`externalIP: <Object>`:</b> configuration passed directly to [`external-ip`](https://github.com/J-Chaniotis/external-ip/blob/master/README.md){:target="_blank"}
 
 ### Methods
 * <b>`.start()`:</b> start watching
 * <b>`.stop()`:</b> stop watching
 * <b>`.poll()`:</b> poll for ip manually
 * <b>`.isWatching()`:</b> check if ip-monitor has started
+
+### Events
+* <b>`IP:success` :</b> fired every time `.poll()` yields an ip
+* <b>`IP:error`:</b> fired when `.poll()` encounters an error, usually if the connection is down
+* <b>`IP:change`:</b> fired when the external ip has changed. it will also fire the first time `.start()` is invoked.
+* <b>`error`:</b> typical error handling here
