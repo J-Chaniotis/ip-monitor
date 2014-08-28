@@ -75,3 +75,6 @@ var watcher = ipMon.createWatcher({
 * <b>`IP:error`:</b> fired when `.poll()` encounters an error, usually if the connection is down
 * <b>`IP:change`:</b> fired when the external ip has changed. it will also fire the first time `.start()` or `.poll()` are invoked.
 * <b>`error`:</b> typical error handling here
+
+##Test
+Change your working directory to the project's root, `npm install` to get the development dependencies and then `npm test`
