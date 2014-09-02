@@ -27,7 +27,6 @@ var counter = function (maxCount, done) {
         invocations: 0,
         increment: function (times) {
             this.invocations += times || 1;
-            /* JavaScript */
             if (this.invocations === maxCount) {
                 done();
             }
