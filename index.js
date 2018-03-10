@@ -1,24 +1,12 @@
 'use strict';
 
-var Watcher = require('./lib/watcher').Watcher;
-var utils = require('./lib/utils');
-var extIP = require('external-ip');
+const Watcher = require('./lib/Watcher');
 
 
-module.exports.createWatcher = function (extConfig) {
-    extConfig = extConfig || {};
-    var isValid = utils.validateConfig(extConfig);
-    if(isValid.errors.length) {
-        throw new Error(isValid.errors);
-    }
+const getIP = require('util').promisify(require('external-ip')({
+    timeout: 2000
+}));
 
-    var defaultConfig = {
-        polling: 20000,
-        externalIP: {}
-    };
+const watcher = new Watcher(getIP, 2000);
 
-    var config = utils.mergeConfig(extConfig, defaultConfig);
-    var getIP = extIP(config.externalIP);
-
-    return new Watcher(getIP, config);
-};
+watcher.start();
