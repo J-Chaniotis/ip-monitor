@@ -13,7 +13,7 @@ A node.js library to monitor your external ip for changes
 ## Usage
 basic
 ```javascript
-const IpMonitor = require('../index');
+const IpMonitor = require('ip-monitor');
 const ipMonitor = new IpMonitor();
 
 ipMonitor.on('change', (prevIp, newIp) => {
@@ -31,7 +31,7 @@ ipMonitor.start();
 
 with custom configuration
 ```javascript
-const IpMonitor = require('../index');
+const IpMonitor = require('ip-monitor');
 const ipMonitor = new IpMonitor({
     pollingInterval: 36000,
     verbose: true,
@@ -55,21 +55,20 @@ ipMonitor.on('error', (error) => {
 ipMonitor.start();
 ```
 
-##API
 
-### Configuration
+## Configuration
 `new IpMonitor([config])` accepts a configuration object with the following optional properties:
 * <b>`pollingInterval: <Integer>`:</b> how often to poll for ip changes, default 1 day
 * <b>`externalIp: <Object>`:</b> configuration passed directly to [`external-ip`](https://github.com/J-Chaniotis/external-ip/blob/master/README.md)
 
-### Methods
+## Methods
 * <b>`.start()`:</b> start watching
 * <b>`.stop()`:</b> stop watching
 * <b>`.poll()`:</b> poll for ip manually
 
-### Events
+## Events
 * <b>`change`:</b> fired when the external ip has changed. it will also fire the first time `.start()` or `.poll()` are invoked.
 * <b>`error`:</b> typical error handling here
 
-##Test
+## Test
 Change your working directory to the project's root, `npm install` to get the development dependencies and then `npm test`
