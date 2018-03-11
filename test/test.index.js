@@ -44,7 +44,7 @@ describe('index.js test', function () {
 
     }));
 
-    it('Should emit an error if external ip is invalid', (function (done) {
+    it('Should throw an error if external-ip configuration is invalid', (function (done) {
         try {
             new IpMonitor({
                 externalIp: {
