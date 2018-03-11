@@ -1,6 +1,6 @@
 {
   "name": "ip-monitor",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "A node.js library to monitor your external ip",
   "main": "index.js",
   "scripts": {
