@@ -1,4 +1,7 @@
-#ip-monitor [![Build Status](https://travis-ci.org/J-Chaniotis/ip-monitor.svg)](https://travis-ci.org/J-Chaniotis/ip-monitor) [![Dependency Status](https://david-dm.org/j-Chaniotis/ip-monitor.svg)](https://david-dm.org/j-Chaniotis/ip-monitor)
+# ip-monitor
+[![Build Status](https://travis-ci.org/J-Chaniotis/ip-monitor.svg?branch=master)](https://travis-ci.org/J-Chaniotis/ip-monitor)
+[![dependencies Status](https://david-dm.org/j-Chaniotis/ip-monitor/status.svg)](https://david-dm.org/j-Chaniotis/ip-monitor)
+[![npm version](https://badge.fury.io/js/ip-monitor.svg)](https://badge.fury.io/js/ip-monitor)
 
 
 A node.js library to monitor your external ip for changes
@@ -6,10 +9,6 @@ A node.js library to monitor your external ip for changes
 ## Installation
 
 `npm install ip-monitor`
-
-[![Build Status](https://travis-ci.org/J-Chaniotis/ip-monitor.svg?branch=master)](https://travis-ci.org/J-Chaniotis/ip-monitor)
-[![dependencies Status](https://david-dm.org/j-Chaniotis/ip-monitor/status.svg)](https://david-dm.org/j-Chaniotis/ip-monitor)
-[![npm version](https://badge.fury.io/js/ip-monitor.svg)](https://badge.fury.io/js/ip-monitor)
 
 ## Usage
 basic
