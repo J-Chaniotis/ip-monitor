@@ -14,7 +14,7 @@ describe('index.js test', function () {
 
         this.timeout(5000);
 
-        const ipMonitor = new IpMonitor();
+        const ipMonitor = new IpMonitor({verbose: true});
 
         ipMonitor.on('change', (previousIp, newIp) => {
             expect(previousIp).to.equal(null);
